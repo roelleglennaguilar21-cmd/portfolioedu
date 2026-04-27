@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | Glennix io</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/auth.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+<div class="auth-wrap">
+
+  <a href="index.html" class="back-link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+    Back to Home
+  </a>
+
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>Create Account</h1>
+      <p>Start your educational journey.</p>
+    </div>
+
+    <!-- GOOGLE SIGN IN -->
+    <div id="g_id_onload"
+         data-client_id="387067754605-fq2fsrp7tpiqa1qf4dlvhefpeu7vp5dh.apps.googleusercontent.com"
+         data-context="signup"
+         data-ux_mode="popup"
+         data-callback="handleGoogleResponse"
+         data-auto_prompt="false">
+    </div>
+
+    <div class="google-btn-wrap">
+      <div class="g_id_signin"
+           data-type="standard"
+           data-shape="rectangular"
+           data-theme="outline"
+           data-text="signup_with"
+           data-size="large"
+           data-logo_alignment="left"
+           data-width="340">
+      </div>
+    </div>
+
+    <div class="divider-line">
+      <span>or use email</span>
+    </div>
+
+    <!-- EMAIL FORM -->
+    <form id="registerForm" novalidate>
+
+      <div class="form-group">
+        <label for="reg-name">Full Name</label>
+        <input type="text" id="reg-name" placeholder="Juan Dela Cruz" required>
+        <span class="field-error" id="err-name"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="reg-email">Email Address</label>
+        <input type="email" id="reg-email" placeholder="juan@email.com" required>
+        <span class="field-error" id="err-email"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="reg-password">Password</label>
+        <div class="input-wrap">
+          <input type="password" id="reg-password" placeholder="Min. 8 characters" required>
+          <button type="button" class="toggle-pw" onclick="togglePassword('reg-password', this)" aria-label="Toggle password">
+            <svg class="eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+        <span class="field-error" id="err-password"></span>
+      </div>
+
+      <button type="submit" class="submit-btn">Register Now</button>
+
+    </form>
+
+    <p class="auth-switch">Already have an account? <a href="login.html">Login here</a></p>
+
+  </div>
+
+</div>
+
+<script>
+  // Google callback
+  function handleGoogleResponse(response) {
+    localStorage.setItem('google_token', response.credential);
+    window.location.href = 'login.html';
+  }
+
+  // Toggle password visibility
+  function togglePassword(id, btn) {
+    const input = document.getElementById(id);
+    const isHidden = input.type === 'password';
+    input.type = isHidden ? 'text' : 'password';
+    btn.querySelector('.eye-icon').style.opacity = isHidden ? '0.4' : '1';
+  }
+
+  // Form validation
+  document.getElementById('registerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let valid = true;
+
+    const name     = document.getElementById('reg-name');
+    const email    = document.getElementById('reg-email');
+    const password = document.getElementById('reg-password');
+
+    // Clear errors
+    ['err-name','err-email','err-password'].forEach(id => {
+      document.getElementById(id).textContent = '';
+    });
+    [name, email, password].forEach(f => f.classList.remove('invalid'));
+
+    if (!name.value.trim()) {
+      document.getElementById('err-name').textContent = 'Full name is required.';
+      name.classList.add('invalid');
+      valid = false;
+    }
+
+    if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+      document.getElementById('err-email').textContent = 'Enter a valid email address.';
+      email.classList.add('invalid');
+      valid = false;
+    }
+
+    if (password.value.length < 8) {
+      document.getElementById('err-password').textContent = 'Password must be at least 8 characters.';
+      password.classList.add('invalid');
+      valid = false;
+    }
+
+    if (valid) {
+      // Save to localStorage and redirect
+      localStorage.setItem('registered_email', email.value.trim());
+      localStorage.setItem('registered_name', name.value.trim());
+      window.location.href = 'login.html';
+    }
+  });
+</script>
+
+</body>
+</html>

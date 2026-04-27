@@ -1,0 +1,325 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #0d0d0d;
+  --dark: #111411;
+  --surface: #161a16;
+  --surface-2: #1a201a;
+  --border: #1e261e;
+  --mint: #a8f0c6;
+  --green: #3ddc84;
+  --green-dim: #2a9c5e;
+  --text: #e8f0e9;
+  --muted: #7a927c;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--dark);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+/* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  height: 64px;
+  background: rgba(17, 20, 17, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  color: var(--mint);
+  letter-spacing: 0.02em;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+nav ul { list-style: none; display: flex; gap: 2rem; }
+
+nav a {
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+nav a:hover, nav a.active { color: var(--mint); }
+
+nav a.register {
+  color: var(--green);
+  font-weight: 500;
+  border: 1px solid var(--green-dim);
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+nav a.register:hover { background: var(--green); color: var(--black); }
+
+/* PAGE HEADER */
+.page-header {
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 8vw, 6rem) clamp(2rem, 4vw, 3rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::after {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(61,220,132,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.page-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.page-label::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--green);
+}
+
+.page-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  color: var(--text);
+  font-weight: 400;
+  margin-bottom: 0.8rem;
+  line-height: 1.1;
+}
+
+.page-title em { font-style: italic; color: var(--mint); }
+
+.page-subtitle {
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: 520px;
+  line-height: 1.7;
+}
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0 clamp(1.5rem, 8vw, 6rem);
+}
+
+/* CARDS SECTION */
+.cards-section {
+  padding: clamp(3rem, 5vw, 4rem) clamp(1.5rem, 8vw, 6rem);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.about-card {
+  background: var(--surface);
+  padding: 2rem;
+  transition: background 0.2s;
+}
+
+.about-card:hover { background: var(--surface-2); }
+
+.card-icon {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.about-card h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--mint);
+  margin-bottom: 0.6rem;
+}
+
+.about-card p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* PHILOSOPHY */
+.philosophy-section {
+  padding: 0 clamp(1.5rem, 8vw, 6rem) clamp(4rem, 8vw, 6rem);
+}
+
+.philosophy-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2.5rem;
+  max-width: 680px;
+}
+
+.quote-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 1rem;
+}
+
+blockquote {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.4;
+  margin-bottom: 1.8rem;
+  padding-left: 1.2rem;
+  border-left: 2px solid var(--green-dim);
+}
+
+/* TOGGLE BUTTON */
+.toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 0.55rem 1.2rem;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.toggle-btn:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.toggle-btn svg {
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* INSIGHT CONTENT */
+.insight-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.insight-content.open {
+  max-height: 400px;
+  opacity: 1;
+}
+
+.insight-inner {
+  padding-top: 1.8rem;
+  margin-top: 1.8rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.insight-block h4 {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--mint);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.insight-block p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.insight-block em { color: var(--text); font-style: italic; }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem clamp(1.5rem, 8vw, 6rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+footer p { font-size: 0.78rem; color: var(--muted); }
+
+.footer-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-header { animation: fadeUp 0.5s ease forwards; }
+.about-grid  { animation: fadeUp 0.5s 0.1s ease both; }
+.philosophy-card { animation: fadeUp 0.5s 0.2s ease both; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav ul { gap: 1rem; }
+  nav a  { font-size: 0.75rem; }
+  footer { justify-content: center; text-align: center; }
+}
+
+@media (max-width: 520px) {
+  nav a.register { display: none; }
+}

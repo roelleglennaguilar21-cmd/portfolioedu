@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Glennix io</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/auth.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+<div class="auth-wrap">
+
+  <a href="index.html" class="back-link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+    Back to Home
+  </a>
+
+  <div class="auth-card">
+
+    <div class="auth-brand">
+      <span class="brand-dot"></span>
+      <span class="brand-name">Glennix io.</span>
+    </div>
+
+    <div class="auth-header">
+      <h1>Welcome Back</h1>
+      <p>Login to your portfolio account.</p>
+    </div>
+
+    <!-- GOOGLE SIGN IN -->
+    <div id="g_id_onload"
+         data-client_id="387067754605-fq2fsrp7tpiqa1qf4dlvhefpeu7vp5dh.apps.googleusercontent.com"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-callback="handleGoogleResponse"
+         data-auto_prompt="false">
+    </div>
+
+    <div class="google-btn-wrap">
+      <div class="g_id_signin"
+           data-type="standard"
+           data-shape="rectangular"
+           data-theme="outline"
+           data-text="signin_with"
+           data-size="large"
+           data-logo_alignment="left"
+           data-width="340">
+      </div>
+    </div>
+
+    <div class="divider-line">
+      <span>or use email</span>
+    </div>
+
+    <!-- EMAIL FORM -->
+    <form id="loginForm" novalidate>
+
+      <div class="form-group">
+        <label for="login-email">Email Address</label>
+        <input type="email" id="login-email" placeholder="juan@email.com" required>
+        <span class="field-error" id="err-email"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="login-password">Password</label>
+        <div class="input-wrap">
+          <input type="password" id="login-password" placeholder="Your password" required>
+          <button type="button" class="toggle-pw" onclick="togglePassword('login-password', this)" aria-label="Toggle password">
+            <svg class="eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+        <span class="field-error" id="err-password"></span>
+      </div>
+
+      <div class="form-options">
+        <label class="checkbox-wrap">
+          <input type="checkbox" id="remember">
+          <span class="checkmark"></span>
+          Remember me
+        </label>
+        <a href="#" class="forgot-link">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="submit-btn">Login</button>
+
+    </form>
+
+    <p class="auth-switch">Don't have an account? <a href="register.html">Register here</a></p>
+
+  </div>
+
+</div>
+
+<script>
+  // Google callback
+  function handleGoogleResponse(response) {
+    localStorage.setItem('google_token', response.credential);
+    // Decode name from JWT payload
+    try {
+      const payload = JSON.parse(atob(response.credential.split('.')[1]));
+      localStorage.setItem('user_name', payload.name || 'User');
+      localStorage.setItem('user_email', payload.email || '');
+      localStorage.setItem('user_picture', payload.picture || '');
+    } catch(e) {}
+    window.location.href = 'index.html';
+  }
+
+  // Toggle password visibility
+  function togglePassword(id, btn) {
+    const input = document.getElementById(id);
+    const isHidden = input.type === 'password';
+    input.type = isHidden ? 'text' : 'password';
+    btn.querySelector('.eye-icon').style.opacity = isHidden ? '0.4' : '1';
+  }
+
+  // Pre-fill email if coming from register
+  const savedEmail = localStorage.getItem('registered_email');
+  if (savedEmail) document.getElementById('login-email').value = savedEmail;
+
+  // Form validation & login
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let valid = true;
+
+    const email    = document.getElementById('login-email');
+    const password = document.getElementById('login-password');
+
+    // Clear errors
+    ['err-email','err-password'].forEach(id => {
+      document.getElementById(id).textContent = '';
+    });
+    [email, password].forEach(f => f.classList.remove('invalid'));
+
+    if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+      document.getElementById('err-email').textContent = 'Enter a valid email address.';
+      email.classList.add('invalid');
+      valid = false;
+    }
+
+    if (!password.value) {
+      document.getElementById('err-password').textContent = 'Password is required.';
+      password.classList.add('invalid');
+      valid = false;
+    }
+
+    if (valid) {
+      const registeredEmail = localStorage.getItem('registered_email');
+      const registeredName  = localStorage.getItem('registered_name');
+
+      // Simple credential check against registered user
+      if (registeredEmail && email.value.trim() === registeredEmail) {
+        localStorage.setItem('user_name', registeredName || 'User');
+        localStorage.setItem('user_email', email.value.trim());
+        window.location.href = 'index.html';
+      } else {
+        document.getElementById('err-email').textContent = 'No account found with this email.';
+        email.classList.add('invalid');
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

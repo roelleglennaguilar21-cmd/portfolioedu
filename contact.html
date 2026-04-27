@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Roelle Glenn Aguilar</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">Glennix io.</a>
+  <nav aria-label="Main Navigation">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="register.html" class="register">Register</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <div class="page-header">
+    <p class="page-label">Get in Touch</p>
+    <h1 class="page-title">Send Me<br><em>a Message</em></h1>
+    <p class="page-subtitle">I'm open for academic collaborations and tech discussions.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <section class="contact-section">
+    <div class="contact-grid">
+
+      <!-- CONTACT DETAILS -->
+      <div class="info-panel">
+        <p class="panel-label">Contact Details</p>
+
+        <div class="info-item">
+          <div>
+            <p class="info-title">Email</p>
+            <p class="info-value">roelleglennaguilar21@gmail.com</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div>
+            <p class="info-title">Phone</p>
+            <p class="info-value">0966-183-9427</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div>
+            <p class="info-title">Organization</p>
+            <p class="info-value">Junior Philippine Computer Society</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <span class="info-icon">🏫</span>
+          <div>
+            <p class="info-title">School</p>
+            <p class="info-value">OLSHCO - Guimba</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div id="form-display-area">
+        <form class="contact-form" id="contactForm" novalidate>
+
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Juan Dela Cruz" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="juan@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" rows="5" placeholder="Type your message here..." required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            Send Message
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 MyEducationPortfolio — Glennix io</p>
+  <div class="footer-dot"></div>
+  <p>Built with HTML &amp; CSS</p>
+</footer>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const senderName = document.getElementById('name').value.trim();
+    const displayArea = document.getElementById('form-display-area');
+
+    displayArea.innerHTML = `
+      <div class="success-card">
+        <div class="success-icon">✓</div>
+        <h2>Message Sent!</h2>
+        <p>Salamat, <strong>${senderName}</strong>! Nakuha ko na ang message mo at sasagot ako agad.</p>
+        <button onclick="window.location.reload()" class="reset-btn">Send Another</button>
+      </div>
+    `;
+  });
+</script>
+
+</body>
+</html>

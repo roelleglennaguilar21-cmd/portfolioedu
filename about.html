@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Roelle Glenn Aguilar</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/about.css">
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">Glennix io.</a>
+  <nav aria-label="Main Navigation">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="register.html" class="register">Register</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="page-header">
+    <p class="page-label">Who I Am</p>
+    <h1 class="page-title">Behind<br><em>the Screen</em></h1>
+    <p class="page-subtitle">
+      I am Aguilar Roelle Glenn, a sophomore IT student driven by the mission
+      to make digital education more accessible and meaningful.
+    </p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CARDS -->
+  <section class="cards-section">
+    <div class="about-grid">
+
+      <article class="about-card">
+        <div class="card-icon"></div>
+        <h3>The Journey</h3>
+        <p>Currently a 2nd-year IT student. I am passionate about learning software architecture to solve real-world problems.</p>
+      </article>
+
+      <article class="about-card">
+        <div class="card-icon"></div>
+        <h3>Academic Focus</h3>
+        <p>I focus on mastering Web Development (HTML, CSS, JS) and Database Management for better user experiences.</p>
+      </article>
+
+      <article class="about-card">
+        <div class="card-icon"></div>
+        <h3>The Vision</h3>
+        <p>I believe the future of learning is digital. I aim to create tools that help students focus on growing.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy-section">
+    <div class="philosophy-card">
+      <p class="quote-label">Professional Philosophy</p>
+      <blockquote>"Simplicity is the ultimate sophistication."</blockquote>
+
+      <button class="toggle-btn" id="insightBtn" onclick="toggleInsight()">
+        <span id="btnText">Show More Insight</span>
+        <svg id="btnIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+
+      <div id="insightContent" class="insight-content" aria-hidden="true">
+        <div class="insight-inner">
+          <div class="insight-block">
+            <h4>Technical Skills</h4>
+            <p>I specialize in responsive web design and ensuring that every project I build is optimized for speed. I believe that a 2nd-year IT student should not just code, but also understand the <em>why</em> behind every function.</p>
+          </div>
+          <div class="insight-block">
+            <h4>Personal Motto</h4>
+            <p>Always be a student of the craft. Technology evolves every day, and I make it a point to learn at least one new CSS trick or JS logic every week.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 MyEducationPortfolio — Glennix io</p>
+  <div class="footer-dot"></div>
+</footer>
+
+<script>
+  function toggleInsight() {
+    const content = document.getElementById('insightContent');
+    const btnText = document.getElementById('btnText');
+    const btnIcon = document.getElementById('btnIcon');
+    const isOpen = content.classList.contains('open');
+
+    if (isOpen) {
+      content.classList.remove('open');
+      content.setAttribute('aria-hidden', 'true');
+      btnText.textContent = 'Show More Insight';
+      btnIcon.style.transform = 'rotate(0deg)';
+    } else {
+      content.classList.add('open');
+      content.setAttribute('aria-hidden', 'false');
+      btnText.textContent = 'Show Less';
+      btnIcon.style.transform = 'rotate(180deg)';
+    }
+  }
+</script>
+
+</body>
+</html>
